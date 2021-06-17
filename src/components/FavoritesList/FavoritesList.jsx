@@ -1,16 +1,13 @@
 import React from 'react'
 import FavoritesItem from '../FavoritesItem/FavoritesItem';
+import {useSelector} from 'react-redux';
 
-const favoritesList = [
-    {   id: 1,
-        url: 'https://media.giphy.com/media/hXEMC5UvfULmw/giphy.gif'
-    }, {
-        id: 2,
-        url: 'https://media.giphy.com/media/spHCUbRqG4cjS/giphy.gif'
-    }
-]
+
 
 export default function FavoritesList() {
+    const favoritesList = useSelector(store => store.getFavorite);
+
+
     return (
         <div>
             <h2>Favorites List</h2>

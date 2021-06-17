@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   pool.query(queryText)
   .then((result) => { res.send(result.rows); })
   .catch((err) => {
-    console.log('Error completeing Select favorites query', err);
+    console.log('Error completing Select favorites query', err);
     res.sendStatus(500);
   });
 });
