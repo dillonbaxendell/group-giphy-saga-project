@@ -31,7 +31,8 @@ function* fetchSearch(action){
     let newSearch = action.payload;
     let response = yield axios.get(`/api/search?q=${newSearch}`)
     console.log(' response from api', response.data)
-    yield put({ type: 'SET_SEARCH_RESULTS', payload: response.data})
+    yield put({ type: 'SET_SEARCH_RESULTS', payload: response.data.data[0].images.fixed_width_small.url})
+    
   } catch (error){
     console.log('error getting giphy', error)
   }
