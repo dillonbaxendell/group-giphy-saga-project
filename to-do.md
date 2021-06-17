@@ -4,6 +4,7 @@
     [X] npm install react-redux
     [X] npm install redux-logger
     [X] npm install react-router-dom
+    [x] npm install express
     [X] Make Components
         [X] FavoritesList
         [X] FavoritesItem
