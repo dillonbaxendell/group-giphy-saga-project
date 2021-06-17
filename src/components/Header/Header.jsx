@@ -8,6 +8,3 @@ export default function Header() {
         </div>
     )
 }
-
-//Export component
-export default Header;
