@@ -30,10 +30,20 @@ const getFavorite = (state = [], action) => {
   }
 }
 
+function* addFavorite(action) {
+  try{
+    yield axios.post('/api/favorite', action.payload);
+    yield put({ type:'FETCH_FAVORITE'})
+} catch (error) {
+    console.error('error with post request',error)
+}
+}
+
 // this is the saga that will watch for actions
 function* watcherSaga(){
   yield takeEvery('FETCH_SEARCH', fetchSearch)
   yield takeEvery('FETCH_FAVORITE', fetchFavorite)
+  yield takeEvery('ADD_FAVORITE', addFavorite)
 }
 
 function* fetchFavorite(){
