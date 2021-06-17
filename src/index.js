@@ -33,11 +33,14 @@ const getFavorite = (state = [], action) => {
 }
 
 function* addFavorite(action) {
+  // Setting the url to action.payload -> It DOES come over correctly from the client!
+  let url = action.payload
+  console.log(url) // this shows up as a string
   try{
-    yield axios.post('/api/favorite', action.payload);
+    yield axios.post('/api/favorite', url);
     yield put({ type:'FETCH_FAVORITE'})
 } catch (error) {
-    console.error('error with post request',error)
+    console.error('error with post request', error)
 }
 }
 

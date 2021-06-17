@@ -3,16 +3,15 @@ import {useDispatch} from 'react-redux';
 
 export default function SearchItem({url}) {
 
-    console.log(url.images.fixed_width_small.url);
-
     const dispatch = useDispatch();
 
+    //This is the size of the image that we want to display in a URL format
     const image = url.images.fixed_width_small.url
 
     const addNewFavorite = event => {
         event.preventDefault();
-        console.log('favorited');
-        dispatch({type:'ADD_FAVORITE', payload:{image}  })
+        console.log(image)
+        dispatch({type:'ADD_FAVORITE', payload: image  })
     }
     
     return (

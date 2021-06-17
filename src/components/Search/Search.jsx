@@ -24,7 +24,6 @@ const clearScreen = () => {
     dispatch({type: 'CLEAR_REDUX'})
 }
 
-console.log(searchResults)
     return (
         <div>
             <form onSubmit={handleSearch}>
