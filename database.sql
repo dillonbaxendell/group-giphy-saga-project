@@ -19,7 +19,7 @@ VALUES ('funny'), ('cohort'), ('cartoon'), ('nsfw'), ('meme');
 CREATE TABLE "favorites"
     "id" SERIAL PRIMARY KEY,
     "category_id" INT REFERENCES "category"
-    "favorite" BOOLEAN DEFAULT FALSE;
+    "favorite" BOOLEAN DEFAULT TRUE;
     "url" VARCHAR (200) NOT NULL
 
 INSERT INTO "favorites" ("favorite", "url")
