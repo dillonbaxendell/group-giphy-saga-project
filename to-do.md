@@ -74,7 +74,7 @@
 [ Home ] Mary/Ian
     [ Search input and submit button ] - DONE
     [ !!! Connect to the API and return one result !!! ] - IMPORTANT VITAL DO THIS FIRST - DONE
-    [ display the result onto the page ]
+    [ display the result onto the page ] - DONE
     [ favorite button ] 
         [ if clicked, will save the url to the database ]
     [ Refresh component ]

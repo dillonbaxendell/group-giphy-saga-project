@@ -16,13 +16,14 @@ router.get('/', (req, res) => {
 
 // add a new favorite
 router.post('/', (req, res) => {
+  // making req.body set to new value -> This works and logs correctly!
   const newFavorite = req.body;
-  const queryText = `INSERT INTO "favorites" ("favorite", "url")
-  VALUES ($1, $2)`;
-  const queryValues = [
-    newFavorite.favorite,
-    newFavorite.url
-  ];
+  //! This will log newFavorite as an object in our database. Do we want this? I'm not sure that we do. Wouldn't we want it to log as a string?
+  console.log('url to save:', newFavorite)
+
+  const queryText = `INSERT INTO "favorites" ( "url" )
+  VALUES ($1)`;
+  const queryValues = [newFavorite]
   pool.query(queryText, queryValues)
   .then(() => {res.sendStatus(201); })
   .catch((err) => {
