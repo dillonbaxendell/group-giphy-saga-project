@@ -46,9 +46,25 @@ function* addFavorite(action) {
 
 // this is the saga that will watch for actions
 function* watcherSaga(){
-  yield takeEvery('FETCH_SEARCH', fetchSearch)
-  yield takeEvery('FETCH_FAVORITE', fetchFavorite)
-  yield takeEvery('ADD_FAVORITE', addFavorite)
+  yield takeEvery('FETCH_SEARCH', fetchSearch);
+  yield takeEvery('FETCH_FAVORITE', fetchFavorite);
+  yield takeEvery('ADD_FAVORITE', addFavorite);
+  yield takeEvery('DELETE_FAVORITE', deleteFavorite);
+}
+
+//DELETE request - worker saga
+function* deleteFavorite(action) {
+  try {
+    //does a DELETE request
+    yield axios.delete(`/favorite/${action.payload.id}`)
+    //put effect in a dispatch
+    yield put({
+        type: 'FETCH_FAVORITE'
+    })
+  } catch (error) {
+    console.log('error with favorite in DELETE request', error);
+
+  }
 }
 
 function* fetchFavorite(){
@@ -81,7 +97,8 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
     combineReducers({
       // pass reducers here
-      getResults
+      getResults,
+      getFavorite
     }),
     applyMiddleware(sagaMiddleware, logger),
   );
