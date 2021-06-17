@@ -20,10 +20,42 @@ const getResults = (state = [], action) => {
   }
 }
 
+const getFavorite = (state = [], action) => {
+  switch (action.type){
+    case 'SET_FAVORITE':
+      console.log(action.payload)
+      return action.payload
+      default:
+        return state
+  }
+}
+
+function* addFavorite(action) {
+  try{
+    yield axios.post('/api/favorite', action.payload);
+    yield put({ type:'FETCH_FAVORITE'})
+} catch (error) {
+    console.error('error with post request',error)
+}
+}
 
 // this is the saga that will watch for actions
 function* watcherSaga(){
   yield takeEvery('FETCH_SEARCH', fetchSearch)
+  yield takeEvery('FETCH_FAVORITE', fetchFavorite)
+  yield takeEvery('ADD_FAVORITE', addFavorite)
+}
+
+function* fetchFavorite(){
+  try {
+    const response = yield axios.get('/api/favorite')
+console.log(response.data)
+// put effect is dispatch
+yield put({ type: 'SET_FAVORITE', payload: response.data})
+
+} catch (error) {
+    console.log('error with favorite get request', error);
+}
 }
 
 function* fetchSearch(action){
