@@ -16,11 +16,11 @@ VALUES ('funny'), ('cohort'), ('cartoon'), ('nsfw'), ('meme');
 -- name = url
 
 --RANDOM PSEUDO
-CREATE TABLE "favorites"
+CREATE TABLE "favorites"(
     "id" SERIAL PRIMARY KEY,
-    "category_id" INT REFERENCES "category"
-    "favorite" BOOLEAN DEFAULT TRUE;
+    "category_id" INT REFERENCES "category",
+    "favorite" BOOLEAN DEFAULT TRUE,
     "url" VARCHAR (200) NOT NULL
-
+);
 INSERT INTO "favorites" ("favorite", "url")
-VALUES (TRUE, 'https://giphy.com/gifs/looking-looney-tunes-searching-26n6WywJyh39n1pBu')
+VALUES (TRUE, 'https://giphy.com/gifs/looking-looney-tunes-searching-26n6WywJyh39n1pBu');
