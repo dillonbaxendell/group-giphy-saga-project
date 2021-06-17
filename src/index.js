@@ -15,6 +15,8 @@ const getResults = (state = [], action) => {
     case 'SET_SEARCH_RESULTS':
       console.log(action.payload)
       return action.payload
+    case 'CLEAR_REDUX':
+      return []
     default:
       return state
   }
@@ -31,11 +33,14 @@ const getFavorite = (state = [], action) => {
 }
 
 function* addFavorite(action) {
+  // Setting the url to action.payload -> It DOES come over correctly from the client!
+  let url = action.payload
+  console.log(url) // this shows up as a string
   try{
-    yield axios.post('/api/favorite', action.payload);
+    yield axios.post('/api/favorite', url);
     yield put({ type:'FETCH_FAVORITE'})
 } catch (error) {
-    console.error('error with post request',error)
+    console.error('error with post request', error)
 }
 }
 
@@ -64,8 +69,9 @@ function* fetchSearch(action){
   try {
     let newSearch = action.payload;
     let response = yield axios.get(`/api/search?q=${newSearch}`)
-    console.log(' response from api', response.data)
-    yield put({ type: 'SET_SEARCH_RESULTS', payload: response.data})
+    console.log(' response from api', response.data.data)
+    yield put({ type: 'SET_SEARCH_RESULTS', payload: response.data.data})
+    // response.data.data[0].images.fixed_width_small.url
   } catch (error){
     console.log('error getting giphy', error)
   }
