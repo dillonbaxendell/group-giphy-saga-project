@@ -1,3 +1,7 @@
+import './Search.css';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
 import React from 'react';
 import {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
@@ -5,31 +9,35 @@ import axios from 'axios'
 import SearchItem from '../SearchItem/SearchItem'
 //SEARCH
 export default function Search() {
+  let [newSearch, setNewSearch] = useState("");
+  const dispatch = useDispatch();
 
-const dispatch = useDispatch();
 const searchResults = useSelector(store => store.getResults)
 
-let [newSearch, setNewSearch] = useState('');
 let [newFavorite, setNewFavorite] = useState('');
 
 
 
 const handleSearch = (event) => {
     event.preventDefault();
-    console.log(newSearch)
-    dispatch({type: 'FETCH_SEARCH', payload: newSearch})
-}
+    console.log(newSearch);
+    dispatch({ type: "FETCH_SEARCH", payload: newSearch });
+  };
 
-const clearScreen = () => {
-    dispatch({type: 'CLEAR_REDUX'})
-}
+
 
     return (
         <div>
-            <form onSubmit={handleSearch}>
-            <input type="text" placeholder = "Search" onChange={(evt) => setNewSearch(evt.target.value)} />
-            <button type = "submit" >Submit</button>
-            </form>
+        <form onSubmit={handleSearch}>
+        <div className="textField">
+          <TextField
+            color="primary"
+            id="standard-search"
+            label="Search"
+            type="search"
+            onChange={(evt) => setNewSearch(evt.target.value)}
+          />
+          <Button type="submit">Submit</Button>
             <p>Images will show here:</p>
             {searchResults.map((url, i) => (
                 <SearchItem
@@ -40,10 +48,10 @@ const clearScreen = () => {
             {/* <img src={searchResults} ></img>
             <button onClick={addNewFavorite}>Favorite</button> 
             <button onClick={clearScreen}>Clear</button> */}
-            
-            
+            </div>
+            </form> 
         </div>
-    )
+  );
 }
 
 
