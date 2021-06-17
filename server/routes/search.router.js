@@ -8,7 +8,7 @@ router.get(`/`, (req, res) => {
     let newSearch = req.query.q
     console.log('newSearch:', newSearch)
   // return all categories
-  axios.get(`http://api.giphy.com/vi/gifs/search?q=${newSearch}&api_key=${process.env.GIPHY_API_KEY}`)
+  axios.get(`http://api.giphy.com/v1/gifs/search?q=${newSearch}&api_key=${process.env.GIPHY_API_KEY}&limit=5`)
   .then((response) => {
       console.log ('success! Here is your data:', response.data)
     res.send(response.data);
