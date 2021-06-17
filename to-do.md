@@ -4,6 +4,7 @@
     [X] npm install react-redux
     [X] npm install redux-logger
     [X] npm install react-router-dom
+    [x] npm install express
     [X] Make Components
         [X] FavoritesList
         [X] FavoritesItem
@@ -71,8 +72,8 @@
 [ header ]
     [ will have a button to navigate you to whatever screen you are not on ]
 [ Home ] Mary/Ian
-    [ Search input and submit button ]
-    [ !!! Connect to the API and return one result !!! ] - IMPORTANT VITAL DO THIS FIRST 
+    [ Search input and submit button ] - DONE
+    [ !!! Connect to the API and return one result !!! ] - IMPORTANT VITAL DO THIS FIRST - DONE
     [ display the result onto the page ]
     [ favorite button ] 
         [ if clicked, will save the url to the database ]
