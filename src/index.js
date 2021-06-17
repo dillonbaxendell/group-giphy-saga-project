@@ -19,6 +19,8 @@ const getResults = (state = [], action) => {
       return state
   }
 }
+
+
 // this is the saga that will watch for actions
 function* watcherSaga(){
   yield takeEvery('FETCH_SEARCH', fetchSearch)
