@@ -9,6 +9,18 @@ CREATE TABLE "category" (
     "name" VARCHAR (100) NOT NULL
 );
 
--- Default categories. You may change them :)
+-- Default categories. You may change them :
 INSERT INTO "category" ("name")
 VALUES ('funny'), ('cohort'), ('cartoon'), ('nsfw'), ('meme');
+
+-- name = url
+
+--RANDOM PSEUDO
+CREATE TABLE "favorites"
+    "id" SERIAL PRIMARY KEY,
+    "category_id" INT REFERENCES "category"
+    "favorite" BOOLEAN DEFAULT FALSE;
+    "url" VARCHAR (200) NOT NULL
+
+INSERT INTO "favorites" ("favorite", "url")
+VALUES (TRUE, 'https://giphy.com/gifs/looking-looney-tunes-searching-26n6WywJyh39n1pBu')
