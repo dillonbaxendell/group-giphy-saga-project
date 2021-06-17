@@ -15,6 +15,8 @@ const getResults = (state = [], action) => {
     case 'SET_SEARCH_RESULTS':
       console.log(action.payload)
       return action.payload
+    case 'CLEAR_REDUX':
+      return []
     default:
       return state
   }
@@ -22,6 +24,7 @@ const getResults = (state = [], action) => {
 // this is the saga that will watch for actions
 function* watcherSaga(){
   yield takeEvery('FETCH_SEARCH', fetchSearch)
+  
 }
 
 function* fetchSearch(action){
@@ -30,9 +33,9 @@ function* fetchSearch(action){
   try {
     let newSearch = action.payload;
     let response = yield axios.get(`/api/search?q=${newSearch}`)
-    console.log(' response from api', response.data)
-    yield put({ type: 'SET_SEARCH_RESULTS', payload: response.data.data[0].images.fixed_width_small.url})
-    
+    console.log(' response from api', response.data.data)
+    yield put({ type: 'SET_SEARCH_RESULTS', payload: response.data.data})
+    // response.data.data[0].images.fixed_width_small.url
   } catch (error){
     console.log('error getting giphy', error)
   }

@@ -2,19 +2,17 @@ import React from 'react';
 import {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import axios from 'axios'
-
+import SearchItem from '../SearchItem/SearchItem'
 //SEARCH
 export default function Search() {
 
 const dispatch = useDispatch();
 const searchResults = useSelector(store => store.getResults)
-console.log(searchResults);
 
 let [newSearch, setNewSearch] = useState('');
+let [newFavorite, setNewFavorite] = useState('');
 
-const favoriteThis = () => {
-    console.log('favorited')
-}
+
 
 const handleSearch = (event) => {
     event.preventDefault();
@@ -22,6 +20,11 @@ const handleSearch = (event) => {
     dispatch({type: 'FETCH_SEARCH', payload: newSearch})
 }
 
+const clearScreen = () => {
+    dispatch({type: 'CLEAR_REDUX'})
+}
+
+console.log(searchResults)
     return (
         <div>
             <form onSubmit={handleSearch}>
@@ -29,8 +32,17 @@ const handleSearch = (event) => {
             <button type = "submit" >Submit</button>
             </form>
             <p>Images will show here:</p>
-            <img src={searchResults} ></img>
-            <button onClick={favoriteThis}>Favorite</button>
+            {searchResults.map((url, i) => (
+                <SearchItem
+                    value={i}
+                    url={url}
+                />
+            ))}
+            {/* <img src={searchResults} ></img>
+            <button onClick={addNewFavorite}>Favorite</button> 
+            <button onClick={clearScreen}>Clear</button> */}
+            
+            
         </div>
     )
 }
