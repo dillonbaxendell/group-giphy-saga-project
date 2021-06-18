@@ -25,23 +25,70 @@ const getResults = (state = [], action) => {
 const getFavorite = (state = [], action) => {
   switch (action.type){
     case 'SET_FAVORITE':
-      console.log(action.payload)
+      console.log('Get favorite',action.payload)
       return action.payload
+    // case 'CLEAR_FAVORITE' :
+    //   return [];
       default:
         return state
+  }
+}
+
+const getCategory = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_CATEGORY' :
+      console.log(action.payload)
+      return action.payload
+    // case 'CLEAR_CATEGORY' :
+    //   return [];
+    default :
+      return state;
   }
 }
 
 function* addFavorite(action) {
   // Setting the url to action.payload -> It DOES come over correctly from the client!
   let url = action.payload
-  console.log(url) // this shows up as a string
+  console.log('The url appearing in addFavorite reducer',url) // this shows up as a string
   try{
-    yield axios.post('/api/favorite', url);
+    yield axios.post('/api/favorite', {url});
     yield put({ type:'FETCH_FAVORITE'})
 } catch (error) {
     console.error('error with post request', error)
 }
+}
+
+function* addCategory(action){
+  // let newCategory = action.payload;
+  
+  console.log(action.payload)
+  const newCategory = action.payload.category
+  const favoriteID = action.payload.favoriteID
+  console.log('The newly selected category is', newCategory);
+  console.log(favoriteID)
+  try{
+    yield axios.put(`/api/favorite/${favoriteID}`, {newCategory, favoriteID});
+    yield put({type: 'FETCH_CATEGORY'})
+    yield put({type: 'FETCH_FAVORITE'})
+  }catch(error){
+    console.log('Error with category post in Index', error)
+  }
+}
+
+function* fetchCategory(){
+  
+  try{
+    const response = yield axios.get('/api/category')
+    console.log(response.data);
+
+    //put effect is dispatch
+    yield put({
+      type: 'SET_CATEGORY',
+      payload: response.data
+  })
+    } catch (error) {
+      console.log('error in fetchCategory', error);
+  }
 }
 
 // this is the saga that will watch for actions
@@ -50,6 +97,8 @@ function* watcherSaga(){
   yield takeEvery('FETCH_FAVORITE', fetchFavorite);
   yield takeEvery('ADD_FAVORITE', addFavorite);
   yield takeEvery('DELETE_FAVORITE', deleteFavorite);
+  yield takeEvery('ADD_CATEGORY', addCategory)
+  yield takeEvery('FETCH_CATEGORY', fetchCategory)
 }
 
 //DELETE request - worker saga
@@ -98,7 +147,8 @@ const store = createStore(
     combineReducers({
       // pass reducers here
       getResults,
-      getFavorite
+      getFavorite,
+      getCategory
     }),
     applyMiddleware(sagaMiddleware, logger),
   );

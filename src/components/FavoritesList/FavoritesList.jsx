@@ -11,7 +11,7 @@ export default function FavoritesList() {
     return (
         <div>
             <h2>Favorites List</h2>
-        {favoritesList.map( favorite => (
+        {favoritesList.map( (favorite) => (
             <FavoritesItem favorite={favorite}/>
         ))}
         </div>
