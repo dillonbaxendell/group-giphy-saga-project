@@ -10,7 +10,7 @@ export default function SearchItem({url}) {
 
     const addNewFavorite = event => {
         event.preventDefault();
-        console.log(image)
+        console.log('The image url is FROM SEARCHITEM',image)
         dispatch({type:'ADD_FAVORITE', payload: image  })
     }
     

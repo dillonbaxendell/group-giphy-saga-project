@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
   pool
     .query(queryText)
     .then((result) => {
+      console.log(result.rows)
       res.send(result.rows);
     })
     .catch((error) => {
@@ -16,5 +17,22 @@ router.get('/', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+//POST REQUEST for new category
+router.post('/:id', (req, res) => {
+  const category = req.body;
+
+  console.log(category);
+
+  const queryText = `UPDATE "favorites" SET "category_id"=$1 WHERE "favorites".id = ;`
+
+    pool.query(queryText, [category])
+.then(result => {
+  res.sendStatus(201);
+})
+.catch( err => {
+  console.log('error in POST new category', err);
+})
+})
 
 module.exports = router;
